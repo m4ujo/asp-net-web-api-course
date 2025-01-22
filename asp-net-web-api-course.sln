@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "asp-net-web-api-course", "asp-net-web-api-course.csproj", "{C66B7413-1C99-4D9C-96E6-C70AE449589C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C66B7413-1C99-4D9C-96E6-C70AE449589C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C66B7413-1C99-4D9C-96E6-C70AE449589C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C66B7413-1C99-4D9C-96E6-C70AE449589C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C66B7413-1C99-4D9C-96E6-C70AE449589C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

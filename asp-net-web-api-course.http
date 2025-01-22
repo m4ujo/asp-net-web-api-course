@@ -1,0 +1,6 @@
+@asp_net_web_api_course_HostAddress = http://localhost:5135
+
+GET {{asp_net_web_api_course_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
