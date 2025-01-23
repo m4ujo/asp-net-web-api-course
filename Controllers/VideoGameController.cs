@@ -1,31 +1,26 @@
-﻿using asp_net_web_api_course.Models;
-using Microsoft.AspNetCore.Http;
+﻿using asp_net_web_api_course.Data;
+using asp_net_web_api_course.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace asp_net_web_api_course.Controllers
 {
   [Route("api/[controller]")]
   [ApiController]
-  public class VideoGameController : ControllerBase
+  public class VideoGameController(VideoGameDbContext context) : ControllerBase
   {
-    static private List<VideoGame> videoGames = new List<VideoGame>
-    {
-      new VideoGame { Id = 1, Title = "The Legend of Zelda: Breath of the Wild", Platform = "Nintendo Switch", Developer = "Nintendo EPD", Publisher = "Nintendo" },
-      new VideoGame { Id = 2, Title = "Super Mario Odyssey", Platform = "Nintendo Switch", Developer = "Nintendo EPD", Publisher = "Nintendo" },
-      new VideoGame { Id = 3, Title = "The Witcher 3: Wild Hunt", Platform = "PlayStation 4", Developer = "CD Projekt Red", Publisher = "CD Projekt" },
-    };
+    private readonly VideoGameDbContext _context = context;
 
     [HttpGet]
-    public ActionResult<List<VideoGame>> GetVideoGames()
+    public async Task<ActionResult<List<VideoGame>>> GetVideoGames()
     {
-      return Ok(videoGames);
+      return Ok(await _context.VideoGames.ToListAsync<VideoGame>());
     }
 
     [HttpGet("{id}")]
-    public ActionResult<VideoGame> GetVideoGameById(int id)
+    public async Task<ActionResult<VideoGame>> GetVideoGameById(int id)
     {
-      var videoGame = videoGames.FirstOrDefault(game => game.Id == id);
-
+      var videoGame = await _context.VideoGames.FindAsync(id);
       if (videoGame is null)
         return NotFound();
 
@@ -33,22 +28,21 @@ namespace asp_net_web_api_course.Controllers
     }
 
     [HttpPost]
-    public ActionResult<VideoGame> AddVideoGame(VideoGame newGame)
+    public async Task<ActionResult<VideoGame>> AddVideoGame(VideoGame newGame)
     {
       if (newGame is null)
         return BadRequest();
 
-      newGame.Id = videoGames.Max(game => game.Id) + 1;
-      videoGames.Add(newGame);
+      _context.VideoGames.Add(newGame);
+      await _context.SaveChangesAsync();
 
       return CreatedAtAction(nameof(GetVideoGameById), new { id = newGame.Id }, newGame);
     }
 
     [HttpPut("{id}")]
-    public IActionResult UpdateVideoGame(int id, VideoGame updatedGame)
+    public async Task<IActionResult> UpdateVideoGame(int id, VideoGame updatedGame)
     {
-      var videoGame = videoGames.FirstOrDefault(game => game.Id == id);
-
+      var videoGame = await _context.VideoGames.FindAsync(id);
       if (videoGame is null)
         return NotFound();
 
@@ -57,18 +51,20 @@ namespace asp_net_web_api_course.Controllers
       videoGame.Developer = updatedGame.Developer;
       videoGame.Platform = updatedGame.Platform;
 
+      await _context.SaveChangesAsync();
+
       return NoContent();
     }
 
     [HttpDelete("{id}")]
-    public IActionResult DeleteVideoGame(int id)
+    public async Task<IActionResult> DeleteVideoGame(int id)
     {
-      var videoGame = videoGames.FirstOrDefault(game => game.Id == id);
-
+      var videoGame = await _context.VideoGames.FindAsync(id);
       if (videoGame is null)
         return NotFound();
 
-      videoGames.Remove(videoGame);
+      _context.VideoGames.Remove(videoGame);
+      await _context.SaveChangesAsync();
 
       return NoContent();
     }
