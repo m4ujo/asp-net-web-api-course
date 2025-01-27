@@ -16,6 +16,8 @@ namespace asp_net_web_api_course.Controllers
     {
       return Ok(await _context.VideoGames
         .Include(g => g.Details)
+        .Include(g => g.Developer)
+        .Include(g => g.Publisher)
         .ToListAsync<VideoGame>());
     }
 
