@@ -13,5 +13,6 @@
     public Publisher? Publisher { get; set; }
 
     public Details? Details { get; set; }
+    public List<Genre>? Genres { get; set; }
   }
 }

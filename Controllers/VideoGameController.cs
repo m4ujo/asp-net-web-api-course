@@ -18,6 +18,7 @@ namespace asp_net_web_api_course.Controllers
         .Include(g => g.Details)
         .Include(g => g.Developer)
         .Include(g => g.Publisher)
+        .Include(g => g.Genres)
         .ToListAsync<VideoGame>());
     }
 
