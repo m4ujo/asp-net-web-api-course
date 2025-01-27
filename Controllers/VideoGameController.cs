@@ -14,7 +14,9 @@ namespace asp_net_web_api_course.Controllers
     [HttpGet]
     public async Task<ActionResult<List<VideoGame>>> GetVideoGames()
     {
-      return Ok(await _context.VideoGames.ToListAsync<VideoGame>());
+      return Ok(await _context.VideoGames
+        .Include(g => g.Details)
+        .ToListAsync<VideoGame>());
     }
 
     [HttpGet("{id}")]

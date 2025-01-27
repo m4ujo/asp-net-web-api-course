@@ -6,6 +6,7 @@ namespace asp_net_web_api_course.Data
   public class VideoGameDbContext(DbContextOptions<VideoGameDbContext> options) : DbContext(options)
   {
     public DbSet<VideoGame> VideoGames => Set<VideoGame>();
+    public DbSet<Details> Details => Set<Details>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
